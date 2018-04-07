@@ -18,6 +18,31 @@
         <div id="container_demo" >
             <div id="wrapper">
                 <div id="login" class="animate form">
+                    <h3 style="color:green"> <?php   $message=Session::get('message');
+                        if($message)
+                            {
+                                echo $message;
+                                Session::put('message',"");
+                            }
+
+                        ?>
+
+
+
+                    </h3>
+
+                    <h2 style="color:red">
+                        <?php   $exception=Session::get('exception');
+                        if($exception)
+                        {
+                            echo $exception;
+                            Session::put('exception',"");
+                        }
+
+                        ?>
+
+
+                    </h2>
                     {{--<form  action="adminlogin.php" autocomplete="on" method="post">--}}
                     {!!  Form::open(['url'=>'admin-login-check']) !!}
                         <h1>Log in</h1>
@@ -34,7 +59,7 @@
                             <label for="loginkeeping">Keep me logged in</label>
                         </p>
                         <p class="signin button">
-                            <input type="submit" name="submit" value="Sign up"/>
+                            <input type="submit" name="submit" value="Log In"/>
                         </p>
                     {{--</form>--}}
 

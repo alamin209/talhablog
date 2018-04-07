@@ -5,7 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
-
+use Session ;
+session_start();
 class adminController extends Controller
 {
     /**
@@ -13,8 +14,30 @@ class adminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function _construct()
+    {
+
+
+    }
+
+    private function auth_status()
+    {
+        $admin_id=Session::get('admin_id');
+        echo  $admin_id;
+        if( $admin_id !=null)
+        {
+
+            return Redirect::to('/dashboard')->send();
+        }
+
+    }
+
     public function index()
     {
+
+        $this->auth_status();
+
         return view('Admin.admin_Login');
 
     }
@@ -34,20 +57,25 @@ class adminController extends Controller
                    ->where('admin_password',$password)
                    ->first();
         if ($admininfo) {
+            Session::put('admin_id',$admininfo->admin_id);
+            Session::put('admin_names',$admininfo->admin_name);
+            Session::put('admin_email',$admininfo->admin_email);
+
 //            return view('admin.admin_master');
 
             return Redirect::to('/dashboard');
         }
         else
         {
+            Session::put('exception',"User email id or password is not match");
             return Redirect::to('/admin-panel');
         }
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
+
+
+
     public function create()
     {
         //
@@ -106,7 +134,7 @@ class adminController extends Controller
      */
     public function destroy($id)
     {
-        
+
 
     }
 }

@@ -24,3 +24,11 @@ Route::get('/about-us','BlogController@aboutUs');
 Route::get('/admin-panel','adminController@index');
 Route::post('/admin-login-check','adminController@adminLoginCheck');
 Route::get('/dashboard','superAdminContoller@index');
+Route::get('/logout','superAdminContoller@logout');
+Route::get('/add-catagory','superAdminContoller@addCatagory');
+Route::get('/manage-catagory','superAdminContoller@mangaeCatagory');
+Route::post('/save-category','superAdminContoller@saveCategory');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
