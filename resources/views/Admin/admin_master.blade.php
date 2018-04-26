@@ -27,6 +27,23 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script>
+
+        function auth_check() {
+
+            var check=confirm("Are you crazy about me ?")
+
+            if(check)
+            {
+                return true
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+    </script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -281,7 +298,7 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{{ 'logout' }}" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{{ 'logout_admin' }}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>

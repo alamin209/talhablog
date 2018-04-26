@@ -6,7 +6,8 @@
     <meta name="keywords" content="free blog template, css template, CSS, HTML" />
     <meta name="description" content="Green Web Blog - free blog template provided by templatemo.com" />
     <link href= "{{ asset('public/css/templatemo_style.css') }}" rel="stylesheet" type="text/css" />
-    <!--  Designed by w w w . t e m p l a t e m o . c o m  -->
+
+
 </head>
 
 <body>
@@ -15,9 +16,29 @@
     <div id="templatemo_menu_section">
         <ul>
             <li><a href="{{  URL::to('/') }}" class="current">Home</a></li>
-            <li><a href="{{'about-us'}}">About  Us</a></li>
+            <li><a href="{{  URL::to('/about-us') }}">About  Us</a></li>
             <li><a href="#">Videos</a></li>
             <li><a href="#">Archives</a></li>
+
+            @guest
+                <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
+            @else
+                <li class="nav-item dropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+            @endguest
+
             <li><a href="#">Links</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
@@ -57,12 +78,41 @@
         <div id="templatemo_content_right">
 
             <div class="templatemo_right_section">
-                <h2>Categories</h2>
+                <h2> Blog Categories</h2>
                 <ul>
-                    <li><a href="#">Morbi nec magna pulvinar</a></li>
-                    <li><a href="#">Suspendisse rhoncus lectus</a></li>
-                    <li><a href="#">Pellentesque rutrum est</a></li>
-                    <li><a href="#">Nunc blandit orci</a></li>
+                    {{--<li><a href="#">Morbi nec magna pulvinar</a></li>--}}
+                    {{--<li><a href="#">Suspendisse rhoncus lectus</a></li>--}}
+                    {{--<li><a href="#">Pellentesque rutrum est</a></li>--}}
+                    {{--<li><a href="#">Nunc blandit orci</a></li>--}}
+                    <?php
+                    $all_publish_catagory=DB::table('table_category')
+                                          ->where('Publication_status',1)
+                                          ->get();
+                    ?>
+
+                    @foreach ($all_publish_catagory as $all)
+                    <li><a href="{{ URL::to('/catagory_blog/'.$all->id ) }}" > {{ $all->category_name  }}</a></li>
+                    @endforeach
+
+
+                </ul>
+            </div>
+            <div class="templatemo_right_section">
+                <h2>Recent Post</h2>
+                <ul class="popular_post">
+
+
+                    <?php
+                    $recent_blog=DB::table('blog_add')
+//                        ->where('Publication_status',1)
+                         ->orderBy('blog_id','desc')
+                        ->limit(3)
+                        ->get();
+                    ?>
+
+                    @foreach ($recent_blog as $all)
+                        <li> <a href="{{ URL::to('/bolg_details/'.$all->blog_id ) }}" >{{ $all->blog_title  }}</a></li>
+                    @endforeach
                 </ul>
             </div>
 
@@ -80,12 +130,24 @@
             <div class="templatemo_right_section">
                 <h2>Popular Posts</h2>
                 <ul class="popular_post">
-                    <li><a href="#">Donec mollis aliquet</a><br />Author 1 - Oct 14, 2048 <span class="comment">12 replies</span></li>
-                    <li><a href="#">Aliquam tristique lacust</a><br />Author 2 - Oct 14, 2048 <span class="comment">8 replies</span></li>
-                    <li><a href="#">Suspendisse potent</a><br />Author 3 - Oct 14, 2048 <span class="comment">10 replies</span></li>
-                    <li><a href="#">Nullam vitae tellus</a><br />Author 4 - Oct 14, 2048 <span class="comment">30 replies</span></li>
+                    <?php
+                    $populer_blog=DB::table('blog_add')
+//                        ->where('Publication_status',1)
+                        ->orderBy('hit_count','desc')
+                        ->limit(3)
+                        ->get();
+                    ?>
+
+                    @foreach ($populer_blog as $p)
+                        <li> <a href="{{ URL::to('/bolg_details/'.$p->blog_id ) }}" > {{ $p->blog_title  }} ( {{ $p->hit_count }})</a></li>
+                    @endforeach
+
+                    {{--<li><a href="#">Aliquam tristique lacust</a><br />Author 2 - Oct 14, 2048 <span class="comment">8 replies</span></li>--}}
+                    {{--<li><a href="#">Suspendisse potent</a><br />Author 3 - Oct 14, 2048 <span class="comment">10 replies</span></li>--}}
+                    {{--<li><a href="#">Nullam vitae tellus</a><br />Author 4 - Oct 14, 2048 <span class="comment">30 replies</span></li>--}}
                 </ul>
             </div>
+
 
             <div class="templatemo_right_section">
                 <h2>Recent Comments</h2>

@@ -11,9 +11,16 @@
         </div>
 
         <div class="post_body">
-            <img src="{{ asset('public/images/templatemo_image_01.jpg') }}" alt="Web Template" />
-            <p>This is a free blog template provided by <a href="http://www.templatemo.com" target="_parent">templatemo.com</a> website. You may download, modify and apply this CSS layout for your personal or business websites.</p>
-            <p>Credit goes to <a href="http://www.photovaco.com" target="_blank">photovaco.com</a> for photos used in this template.</p>
+            @foreach($all_blog as $blog)
+
+                <h2>{{ $blog->blog_title }}</h2>
+                {{--{{ $blog->short_description }}--}}
+             <?php  echo  $blog->short_description ?>
+                <p>{{ $blog->created_at }}</p>
+                <img src="{{ $blog->blog_image }}" style="width:500px" alt=" " />
+                <a href="{{ URL::to('/bolg_details/'.$blog->blog_id ) }}" ><span class="btn btn-success">Read More</span> </a>
+
+            @endforeach
 
         </div>
         <div class="post_comment">

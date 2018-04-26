@@ -68,6 +68,23 @@
             </span>
                 </a>
             </li>
+            <li>
+                <a href="{{'add-blog'}}">
+                    <i class="fa fa-th"></i> <span>add Blog</span>
+                    <span class="pull-right-container">
+              <small class="label pull-right bg-green">new</small>
+            </span>
+                </a>
+            </li>
+            <li>
+                <a href="{{'manage-comments'}}">
+                    <i class="fa fa-th"></i> <span>Manage Comments</span>
+                    <span class="pull-right-container">
+              <small class="label pull-right bg-green">new</small>
+            </span>
+                </a>
+            </li>
+
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>

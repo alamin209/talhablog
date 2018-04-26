@@ -27,10 +27,7 @@
 
                         ?>
 
-
-
                     </h3>
-
                     <h2 style="color:red">
                         <?php   $exception=Session::get('exception');
                         if($exception)
@@ -40,7 +37,6 @@
                         }
 
                         ?>
-
 
                     </h2>
                     {{--<form  action="adminlogin.php" autocomplete="on" method="post">--}}
